@@ -14,32 +14,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - run: |
-          sudo apt update
-          sudo apt install -y \
-                              graphviz
+      - run: touch docs/test.pdf
 
-      - run: ./render-puml.sh
-
-      - run: |
-          sudo apt install -y \
-                              pandoc \
-                              texlive-latex-base \
-                              texlive-latex-extra \
-                              texlive-fonts-recommended \
-                              texlive-fonts-extra \
-                              librsvg2-bin
-
-
-      - run: ./generate-pdf.sh
-
-      - name: Match svg and pdf files
-        uses: tj-actions/glob@v7.10
-        id: artifacts
-        with:
-          files: |
-            **/*.svg
-            **/*.pdf
+      - run: touch docs/test.svg
 
       - name: Pull request artifacts
         if: ${{ github.event_name == 'pull_request' }}
