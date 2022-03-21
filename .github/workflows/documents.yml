@@ -18,6 +18,14 @@ jobs:
 
       - run: touch doc/test.svg
 
+      - name: Match svg and pdf files
+          uses: tj-actions/glob@v7.10
+          id: artifacts
+          with:
+            files: |
+              **/*.svg
+              **/*.pdf
+
       - name: Pull request artifacts
         if: ${{ github.event_name == 'pull_request' }}
         uses: gavv/pull-request-artifacts@v1.0.0
