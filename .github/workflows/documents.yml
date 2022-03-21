@@ -40,7 +40,6 @@ jobs:
           files: |
             **/*.svg
             **/*.pdf
-          separator: '\n'
 
       - name: Pull request artifacts
         if: ${{ github.event_name == 'pull_request' }}
