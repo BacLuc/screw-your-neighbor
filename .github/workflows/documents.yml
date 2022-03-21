@@ -31,5 +31,5 @@ jobs:
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          artifacts: |
+          files: |
             ${{ steps.artifacts.outputs.paths }}
