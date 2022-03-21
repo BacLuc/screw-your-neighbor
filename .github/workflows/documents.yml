@@ -13,6 +13,11 @@ on:
       - '**/*.md'
       - '**/*.puml'
       - '.github/workflows/documents.yml'
+  pull_request:
+    paths:
+      - '**/*.md'
+      - '**/*.puml'
+      - '.github/workflows/documents.yml'
   workflow_dispatch:
 jobs:
   build:
