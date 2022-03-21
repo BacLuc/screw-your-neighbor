@@ -77,4 +77,5 @@ HTTP <..> [DTO Player]
 [Controller Lobby]  <--> [Service Lobby]
 [Controller Match]  <--> [Service Match]
 
+
 @enduml
