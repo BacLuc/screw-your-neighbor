@@ -25,6 +25,10 @@ jobs:
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
 
+      - name: change permissions of gradlew
+        working-directory: api
+        run: chmod +x gradlew
+
       - name: Test
         working-directory: api
         env:
@@ -49,6 +53,10 @@ jobs:
           java-version: 15
           distribution: adopt
           cache: 'gradle'
+
+      - name: change permissions of gradlew
+        working-directory: api
+        run: chmod +x gradlew
 
       - name: Check format
         working-directory: api
