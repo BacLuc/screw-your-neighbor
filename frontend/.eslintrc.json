@@ -1,0 +1,36 @@
+{
+  "root": true,
+  "ignorePatterns": [
+    "build/**",
+    "src/generated/**"
+  ],
+  "plugins": [
+    "prettier",
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "linebreak-style": ["error", "unix"],
+    "quotes": "off",
+    "max-len": [
+      "warn",
+      {
+        "code": 120,
+        "ignoreComments": true
+      }
+    ],
+    "prettier/prettier": [
+      "warn",
+      {
+        "endOfLine": "auto"
+      }
+    ]
+  }
+}

@@ -1,0 +1,26 @@
+.roomlist {
+  width:100%;
+  margin-bottom: 10px;
+  text-align:center;
+  margin-left: auto;
+  margin-right: auto;
+  display:block;
+  overflow-y: scroll;
+  max-height: 200px;
+
+}
+
+.roomlistitem {
+  text-align: center;
+  font-size: 20px;
+  height: 50px;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  overflow: hidden;
+  background:red;
+  border-radius: 10px;
+  opacity: 200%;
+  margin-bottom: 5px;
+}

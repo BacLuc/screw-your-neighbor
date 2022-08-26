@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "jsx": "react",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "target": "ES2015",
+    "types": [
+      "node",
+      "webpack-env"
+    ]
+  },
+  "include": [
+    "src"
+  ]
+}

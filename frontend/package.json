@@ -1,0 +1,94 @@
+{
+  "name": "screw-your-neighbor-react",
+  "version": "0.1.0",
+  "engines": {
+    "node": "^16",
+    "npm": "^8"
+  },
+  "dependencies": {
+    "@emotion/react": "11.8.2",
+    "@emotion/styled": "11.8.1",
+    "@jitsi/react-sdk": "1.0.1",
+    "@mui/icons-material": "5.5.1",
+    "@mui/material": "5.5.2",
+    "axios": "0.26.1",
+    "form-data": "4.0.0",
+    "mobx": "6.5.0",
+    "mobx-react-lite": "3.3.0",
+    "prop-types": "15.8.1",
+    "react": "17.0.2",
+    "react-confetti": "^6.0.1",
+    "react-countdown": "^2.3.2",
+    "react-dom": "17.0.2",
+    "react-icons": "^4.3.1",
+    "react-idle-timer": "^5.1.1",
+    "react-router": "6.2.2",
+    "react-router-dom": "6.2.2",
+    "react-spring": "9.4.5",
+    "react-transition-group": "4.4.2",
+    "require-context": "1.1.0",
+    "require-context.macro": "1.2.2",
+    "sass": "1.49.9"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "5.16.2",
+    "@testing-library/react": "12.1.4",
+    "@testing-library/user-event": "13.5.0",
+    "@types/jest": "27.4.1",
+    "@types/node": "17.0.21",
+    "@types/react": "17.0.40",
+    "@types/react-dom": "17.0.13",
+    "@types/webpack-env": "^1.16.4",
+    "@typescript-eslint/eslint-plugin": "5.15.0",
+    "@typescript-eslint/parser": "5.15.0",
+    "eslint": "8.12.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "lint-staged": "12.3.6",
+    "openapi-typescript-codegen": "0.20.1",
+    "prettier": "2.6.0",
+    "react-scripts": "5.0.0",
+    "typescript": "4.6.2"
+  },
+  "scripts": {
+    "start": "node_modules/react-scripts/bin/react-scripts.js start",
+    "build": "npm run openapi-generate && npm run build-react",
+    "build-react": "node_modules/react-scripts/bin/react-scripts.js build",
+    "test": "node_modules/react-scripts/bin/react-scripts.js test",
+    "ci-test": "node_modules/react-scripts/bin/react-scripts.js test --coverage --watchAll=false",
+    "lint": "node_modules/eslint/bin/eslint.js --fix .",
+    "lint-check": "node_modules/eslint/bin/eslint.js .",
+    "openapi-generate": "node_modules/openapi-typescript-codegen/bin/index.js -c axios --name AppClient --input ./screw-your-neighbor-server-openapi.json --output ./src/generated"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/**/*.test.{ts,tsx}",
+      "!<rootDir>/node_modules/",
+      "!src/generated/"
+    ],
+    "coverageReporters": [
+      "text",
+      "lcov"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/src/generated"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!@jitsi/react-sdk)"
+    ]
+  }
+}

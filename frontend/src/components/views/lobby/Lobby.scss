@@ -1,0 +1,119 @@
+@import "src/styles/theme";
+
+.lobby-room-group{
+  display: block;
+  clear:both;
+  text-align: center;
+  width: 100%;
+  max-height: 400px;
+  overflow: clip;
+  margin-bottom: 10px;
+}
+
+.lobby-roomlist-item{
+  border-radius: 10px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  overflow-y: scroll;
+}
+
+.toot{
+  display: block;
+  flex-direction: column;
+  background-color: #620606;
+  color: $textColor;
+  border-radius: 2em;
+  overflow: hidden;
+  align-items: center;
+  justify-content: space-around;
+  text-align: center;
+  margin-left: auto; //Necessary to put container in middle
+  margin-right: auto;
+  margin-top: 20px;
+  padding-bottom: 8px;
+  padding-right: 5px;
+  overflow-y: scroll;
+  max-height: 400px;
+}
+
+.lobby-button-div{
+  width: 100%;
+  overflow: hidden;
+  align-content: center;
+  align-self: center;
+  justify-content: space-around;
+  margin-left: 50%;
+}
+
+.lobby-room-list{
+  width:100%;
+  margin-bottom: 10px;
+  text-align:center;
+  margin-right: auto;
+  display:block;
+  overflow-y: scroll;
+  max-height: 200px;
+  padding: 10px;
+  border-Radius: 1em;
+}
+
+
+.lobby-button {
+  &:hover {
+    transform: translateY(-2px) scale(101%);
+  }
+  &:disabled {
+    cursor: default;
+    opacity: 0.4;
+    &:hover {
+      transform: none;
+    }
+  }
+
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 13px;
+  text-align: center;
+  height: 35px;
+  border: black;
+  padding: 10px;
+  border-radius: 0.75em;
+  cursor: pointer;
+  opacity: 1;
+  color: whitesmoke;
+  background-color: darkblue;
+  transition: all 0.3s ease;
+}
+
+.lobby-player-div{
+
+  width: 100%;
+  display: block;
+  flex-direction: column;
+  background-color: #620606;
+  color: white;
+  border-radius: 2em;
+  overflow: hidden;
+  justify-content: space-around;
+  text-align: center;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 40px;
+  padding-right: 40px;
+  overflow-y: scroll;
+  padding-bottom: 10px;
+  max-height: 400px;
+}
+
+.lobby-individual-playerlist{
+  text-align: left;
+  background-color: #8e0202;
+  margin: 0.5em;
+  padding: 1px;
+  padding-left: 20px;
+  border-radius: 2em;
+}

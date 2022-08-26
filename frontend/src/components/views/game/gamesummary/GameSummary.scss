@@ -1,0 +1,22 @@
+@import "src/styles/theme";
+
+.gameSummary-box{
+  justify-content: center;
+  margin-right: auto;
+  margin-left: auto;
+  display: block;
+}
+
+.gameSummary-button-box{
+  display: flex;
+  justify-content: space-evenly;
+  background-color: #610607;
+  border-color: #8e0202;
+  border-radius: 2em;
+  padding: 5px;
+  width: 40%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 45px;
+
+}

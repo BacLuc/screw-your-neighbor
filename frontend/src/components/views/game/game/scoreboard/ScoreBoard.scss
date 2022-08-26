@@ -1,0 +1,69 @@
+@import 'src/styles/theme';
+
+.scoreboard {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-content: stretch;
+
+  .base-container {
+    width: 100%;
+    height: 100%;
+
+    .content {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  h1 {
+    margin: 0;
+    font-family: 'Pacifico', cursive;
+    font-style: normal;
+  }
+
+  ul {
+    min-height: 70%;
+    list-style: none;
+    background-color: #971c1c;
+    border-radius: $borderRadius;
+    width: 90%;
+    padding: 5px 5px;
+  }
+
+  li {
+    background-color: #b96262;
+    height: 40px;
+    font-size: 20pt;
+    border-radius: $borderRadius;
+    padding: 3px $borderRadius;
+    margin: 3px 0;
+    display: flex;
+  }
+
+  li.own-participation {
+    background-color: #7f6b55;
+  }
+
+  .chip {
+    margin-left: 10px;
+    font-size: 12pt;
+    height: 75%;
+    background-image: linear-gradient(94deg, rgba(4,133,203,1) 0%, rgba(60,171,240,0.7) 62%, rgba(22,174,205,0.5) 100%);
+    align-self: center;
+
+    span {
+      border-radius: $borderRadius;
+      padding: 0 $borderRadius;
+    }
+  }
+
+  .configured-avatar {
+    margin-right: 10px;
+  }
+
+  .points {
+    margin-left: auto;
+  }
+
+}

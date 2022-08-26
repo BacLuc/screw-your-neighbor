@@ -1,0 +1,103 @@
+
+.navBar {
+  position: relative;
+  overflow: hidden;
+
+}
+.menuNav {
+  list-style: none;
+  position: fixed;
+  top: -40px;
+  background: rgba(156, 22, 12, 1);
+  left: 0;
+  height: 110%;
+  width: 0;
+  overflow: hidden;
+  max-width: 290px;
+  z-index: 9;
+  align-items: center;
+}
+
+.menuNav.showMenu {
+  height: 110%;
+  margin-top: -10px;
+  padding-left: 40px;
+  background: linear-gradient(90deg, rgba(156, 20, 10, 1) 0% ,rgba(150, 25, 15, 0.6) 100% );
+  z-index: 9;
+  width: 200%;
+  align-items: center;
+}
+
+
+
+#menu_checkbox {
+  display: none;
+  z-index: 10;
+}
+
+.hamburgerlabel { //Important: Don't define style of "label"!
+  position: fixed;
+  top: 5%;
+  left: 2%;
+  display: block;
+  width: 40px;
+  height: 40px;
+  margin: -30px auto 0 auto;
+  cursor: pointer;
+  z-index: 10;
+
+  &:before {
+    content: "";
+    position: fixed;
+    top: -40;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+label div {
+  position: relative;
+  top: 4px;
+  height: 10px;
+  background-image: linear-gradient(rgba(69,8,8,1),rgba(143,24,24,1));
+  margin-bottom: 5px;
+  transition: 0.3s ease transform, 0.3s ease top, 0.3s ease width,
+  0.3s ease right;
+  border-radius: 4px;
+}
+
+label div:first-child {
+  transform-origin: 0;
+  top: 4px;
+}
+
+label div:last-child {
+  margin-bottom: 0;
+  transform-origin: 40px;
+}
+
+label div:nth-child(2) {
+  width: 40px;
+}
+
+#menu_checkbox:checked + label div:first-child {
+  transform: rotateZ(45deg);
+  background-image: linear-gradient(white,whitesmoke);
+
+}
+
+#menu_checkbox:checked + label div:last-child {
+  top: 13.9px;
+  transform: rotateZ(45deg);
+  background-image: linear-gradient(white,whitesmoke);
+
+}
+
+#menu_checkbox:checked + label div:nth-child(2) {
+  width: 58px;
+  top: 9px;
+  right: 8px;
+  transform: rotateZ(-45deg);
+  background-image: linear-gradient(white,whitesmoke);
+}

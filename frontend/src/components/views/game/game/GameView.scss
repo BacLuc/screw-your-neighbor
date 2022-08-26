@@ -1,0 +1,59 @@
+@import 'src/styles/theme';
+
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  color: $textColor;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-top: 2em;
+  overflow-y: hidden;
+
+  .base-container {
+    margin: 5px auto;
+    height: 95%;
+  }
+
+  .top-row {
+    height: 40%;
+    padding: 1em;
+  }
+  .second-row {
+    height: 60%;
+    z-index: 10;
+  }
+
+  .game.wrapper-for-absolute {
+    height: 100%;
+    position: relative;
+  }
+
+  .your-hand {
+    position: absolute;
+    left: 5%;
+    bottom: -180px;
+    height: 320px;
+    width: 670px;
+  }
+
+  .score-announcing {
+    position: absolute;
+    right: 3%;
+    bottom: 3%;
+    width: 30%;
+    margin-bottom: 15px;
+  }
+
+  .points-overview {
+    position: absolute;
+    left: 10px;
+    bottom: 30px;
+    background-color: #620606;
+    border-radius: $borderRadius;
+    padding: 0 $borderRadius;
+    font-size: x-large;
+  }
+}

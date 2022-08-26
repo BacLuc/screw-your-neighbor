@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  api-build:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -43,7 +43,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: ./gradlew jar
 
-  check-format:
+  api-check-format:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -61,3 +61,65 @@ jobs:
       - name: Check format
         working-directory: api
         run: ./gradlew spotlessCheck
+
+  frontend-lint:
+    name: "Lint"
+    runs-on: ubuntu-20.04
+    steps:
+
+      - uses: actions/checkout@ec3a7ce113134d7a93b817d10a8272cb61118579 # renovate: tag=v2
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.14.1'
+
+      - uses: actions/cache@937d24475381cd9c75ae6db12cb4e79714b926ed # renovate: tag=v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - run: npm ci
+        working-directory: frontend
+
+      - run: npm run openapi-generate
+        working-directory: frontend
+
+      - run: npm run lint-check
+        working-directory: frontend
+
+  frontend-unit-tests:
+    name: "Unit tests"
+    runs-on: ubuntu-20.04
+    steps:
+      - name: "configure windows to use git correctly"
+        if: runner.os == 'Windows'
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16.14.1'
+
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - run: npm ci
+        working-directory: frontend
+
+      - run: npm run openapi-generate
+        working-directory: frontend
+
+      - run: npm run build
+        working-directory: frontend
+
+      - run: npm run test
+        working-directory: frontend
