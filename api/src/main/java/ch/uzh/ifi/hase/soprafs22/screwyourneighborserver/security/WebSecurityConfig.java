@@ -1,6 +1,8 @@
 package ch.uzh.ifi.hase.soprafs22.screwyourneighborserver.security;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -18,6 +20,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
   @Value("${spring.h2.console.path}")
   private String h2ConsolePath;
 
+  @Value("${security.cors.allowed-hosts}")
+  private String[] allowedHosts;
+
   @Override
   protected void configure(HttpSecurity http) throws Exception {
     http.cors()
@@ -26,9 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
               CorsConfiguration corsConfiguration = new CorsConfiguration();
               corsConfiguration.setAllowCredentials(true);
               corsConfiguration.setAllowedMethods(List.of(CorsConfiguration.ALL));
-              corsConfiguration.setAllowedOrigins(
-                  List.of(
-                      "http://localhost:3000", "https://screw-your-neighbor-react.herokuapp.com"));
+              var allowedOrigins = Arrays.stream(allowedHosts).collect(Collectors.toList());
+              corsConfiguration.setAllowedOrigins(allowedOrigins);
               corsConfiguration.setAllowedHeaders(List.of(CorsConfiguration.ALL));
               return corsConfiguration;
             });
