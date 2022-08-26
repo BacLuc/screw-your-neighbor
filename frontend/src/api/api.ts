@@ -1,13 +1,7 @@
 import { AppClient } from "../generated"
+import { env } from "../util/loadEnv"
 
-const isProduction = process.env.NODE_ENV === "production"
-
-const getDomain = () => {
-  const prodUrl = "https://screw-your-neighbor-server.herokuapp.com"
-  const devUrl = "http://localhost:8080"
-
-  return isProduction ? prodUrl : devUrl
-}
+const getDomain = () => env.REACT_APP_API_URL
 
 const api = new AppClient({
   BASE: getDomain(),
