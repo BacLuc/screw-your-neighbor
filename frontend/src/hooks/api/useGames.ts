@@ -4,6 +4,7 @@ import { useApi } from "./useApi"
 import { toIri } from "../../util/toIri"
 import { EntityModelGame, Game } from "../../generated"
 import { extractId } from "../../util/extractId"
+import { poll } from "../../util/poll"
 
 const ignoreValidationFailed = (reason) => {
   if (reason.status === 422) {
@@ -47,17 +48,7 @@ export function useGames() {
     gamesStore.setGames(gamesPage._embedded.games)
   }
 
-  const startPollGames = () => {
-    gamesStore.gamesSubscriptions.addSubscription(
-      setInterval(refreshGames, 500)
-    )
-
-    return {
-      cancel() {
-        gamesStore.gamesSubscriptions.removeSubscription()
-      },
-    }
-  }
+  const startPollGames = () => poll("games", refreshGames, 500)
 
   const joinGame = async (game: EntityModelGame) => {
     const myParticipations = game.participations.filter(

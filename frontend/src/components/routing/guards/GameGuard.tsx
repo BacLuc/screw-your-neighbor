@@ -47,45 +47,42 @@ export const GameGuard = observer((props: GameGuardProps) => {
     throw e
   }
 
-  useEffect(() => {
-    if (!gameReady) {
-      const start = Date.now()
-      refreshGame()
-        .catch(catch404)
-        .then((value) => delay(500 - (Date.now() - start), value))
-        .finally(() => setGameLoaded(true))
-      return
-    }
-    if (game) {
-      if (
-        cachedGameState === gameStateEnum.PLAYING &&
-        game.gameState === gameStateEnum.CLOSED
-      ) {
-        setRunningGameStateUpdate((previousState) => {
-          if (!previousState) {
-            return setTimeout(() => setCachedGameState(game.gameState), 2000)
-          }
-          return previousState
-        })
-      } else {
-        setCachedGameState(game.gameState)
+  useEffect(
+    () => {
+      if (!gameReady) {
+        const start = Date.now()
+        refreshGame()
+          .catch(catch404)
+          .then((value) => delay(500 - (Date.now() - start), value))
+          .finally(() => setGameLoaded(true))
+        return
       }
-      const pollGameSubscription = startPollGame()
-      return () => {
-        pollGameSubscription.cancel()
-        if (runningGameStateUpdate) {
-          clearTimeout(runningGameStateUpdate)
+      if (game) {
+        if (
+          cachedGameState === gameStateEnum.PLAYING &&
+          game.gameState === gameStateEnum.CLOSED
+        ) {
+          setRunningGameStateUpdate((previousState) => {
+            if (!previousState) {
+              return setTimeout(() => setCachedGameState(game.gameState), 2000)
+            }
+            return previousState
+          })
+        } else {
+          setCachedGameState(game.gameState)
+        }
+        const pollGameSubscription = startPollGame()
+        return () => {
+          pollGameSubscription.cancel()
+          if (runningGameStateUpdate) {
+            clearTimeout(runningGameStateUpdate)
+          }
         }
       }
-    }
-  }, [
-    cachedGameState,
-    game,
-    gameReady,
-    refreshGame,
-    runningGameStateUpdate,
-    startPollGame,
-  ])
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [cachedGameState, game, gameReady, runningGameStateUpdate]
+  )
 
   return (
     <Loading ready={gameLoaded}>

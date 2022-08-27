@@ -36,13 +36,17 @@ const CreatePlayer = () => {
     }
   }
 
-  useEffect(() => {
-    if (me !== null) {
-      navigate(Paths.LOBBY)
-    }
-    const playersSubscription = startPollPlayers()
-    return () => playersSubscription.cancel()
-  }, [me, navigate, startPollPlayers])
+  useEffect(
+    () => {
+      if (me !== null) {
+        navigate(Paths.LOBBY)
+      }
+      const playersSubscription = startPollPlayers()
+      return () => playersSubscription.cancel()
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [me, navigate]
+  )
 
   return (
     <div>

@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import { appContext } from "../../AppContext"
 import { useApi } from "./useApi"
 import { ApiError } from "../../generated"
+import { poll } from "../../util/poll"
 export function usePlayers() {
   const playerStore = useContext(appContext).playerStore
   const [loading, setLoading] = useState(false)
@@ -27,16 +28,7 @@ export function usePlayers() {
     playerStore.setPlayers(players._embedded.players)
   }
 
-  const startPollPlayers = () => {
-    playerStore.playersSubscriptions.addSubscription(
-      setInterval(refreshPlayers, 500)
-    )
-    return {
-      cancel() {
-        playerStore.playersSubscriptions.removeSubscription()
-      },
-    }
-  }
+  const startPollPlayers = () => poll("players", refreshPlayers, 500)
 
   const hasCurrentSession = async () => {
     const catchNoSession = (e) => {

@@ -5,6 +5,7 @@ import { toIri } from "../../util/toIri"
 import { Game } from "../../generated"
 import { useParams } from "react-router"
 import { iriMatch } from "../../util/iriMatch"
+import { poll } from "../../util/poll"
 const gameState = Game.gameState
 
 export function useCurrentGame() {
@@ -61,17 +62,7 @@ export function useCurrentGame() {
     )
   }
 
-  const startPollGame = () => {
-    currentGameStore.gameSubscriptions.addSubscription(
-      setInterval(refreshGame, 500)
-    )
-
-    return {
-      cancel() {
-        currentGameStore.gameSubscriptions.removeSubscription()
-      },
-    }
-  }
+  const startPollGame = () => poll("game", refreshGame, 500)
 
   /**
    * So far only for hand with ID 5, have to replace by ._links. ...

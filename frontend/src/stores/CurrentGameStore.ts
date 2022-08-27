@@ -6,13 +6,11 @@ import {
   Match,
   Round,
 } from "../generated"
-import { KeepOnlyOneInterval } from "../util/KeepOnlyOneInterval"
 import { embedProxy } from "../util/embedProxy"
 
 export class CurrentGameStore {
   @observable game?: EntityModelGame
   @observable participation?: EntityModelParticipation
-  readonly gameSubscriptions = new KeepOnlyOneInterval()
 
   constructor() {
     makeAutoObservable(this)

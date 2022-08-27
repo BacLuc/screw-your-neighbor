@@ -26,7 +26,7 @@ const Lobby = observer(() => {
     const gamesSubscription = startPollGames()
     return () =>
       [playersSubscription, gamesSubscription].forEach((sub) => sub.cancel())
-  }, [startPollGames, startPollPlayers])
+  })
 
   // filtering all the active games to only show the ones that have not started yet
   const searchingGames = games.filter(
