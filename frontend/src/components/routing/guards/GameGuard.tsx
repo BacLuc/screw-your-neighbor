@@ -3,10 +3,8 @@ import { observer } from "mobx-react-lite"
 import { useNavigate } from "react-router-dom"
 import { useCurrentGame } from "../../../hooks/api/useCurrentGame"
 import { Paths } from "../routers/Paths"
-import { ApiError, Game } from "../../../generated"
-import { iriMatch } from "../../../util/iriMatch"
+import { Game } from "../../../generated"
 import { Loading } from "../../ui/Loading"
-import { delay } from "../../../util/timeout"
 import { Room } from "../../views/game/room/Room"
 import GameView from "../../views/game/game/GameView"
 import { GameSummary } from "../../views/game/gamesummary/GameSummary"
@@ -22,11 +20,12 @@ export type GameGuardProps = {
 
 export const GameGuard = observer((props: GameGuardProps) => {
   const navigate = useNavigate()
-  const { game, refreshGame, currentGameIriFromParameter } = useCurrentGame()
-  const gameReady =
-    game && iriMatch(currentGameIriFromParameter, game._links.self)
+  const { game } = useCurrentGame()
 
-  const [gameLoaded, setGameLoaded] = useState(gameReady)
+  const [startRender] = useState(new Date())
+
+  const mountedSinceOneSecond =
+    new Date().getDate() - startRender.getDate() > 1000
 
   const [cachedGameState, setCachedGameState] = useState(undefined)
   const [runningGameStateUpdate, setRunningGameStateUpdate] =
@@ -38,40 +37,24 @@ export const GameGuard = observer((props: GameGuardProps) => {
     navigate(props.redirectTo)
   }
 
-  const catch404 = (e) => {
-    if (e instanceof ApiError) {
-      if (e.status === 404) {
-        return null
-      }
-    }
-    throw e
-  }
-
+  const gameState = game?.gameState
   useEffect(
     () => {
-      if (!gameReady) {
-        const start = Date.now()
-        refreshGame()
-          .catch(catch404)
-          .then((value) => delay(500 - (Date.now() - start), value))
-          .finally(() => setGameLoaded(true))
-        return
-      }
+      const pollGameSubscription = startPollGame()
       if (game) {
         if (
           cachedGameState === gameStateEnum.PLAYING &&
-          game.gameState === gameStateEnum.CLOSED
+          gameState === gameStateEnum.CLOSED
         ) {
           setRunningGameStateUpdate((previousState) => {
             if (!previousState) {
-              return setTimeout(() => setCachedGameState(game.gameState), 2000)
+              return setTimeout(() => setCachedGameState(gameState), 2000)
             }
             return previousState
           })
         } else {
-          setCachedGameState(game.gameState)
+          setCachedGameState(gameState)
         }
-        const pollGameSubscription = startPollGame()
         return () => {
           pollGameSubscription.cancel()
           if (runningGameStateUpdate) {
@@ -81,14 +64,14 @@ export const GameGuard = observer((props: GameGuardProps) => {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [cachedGameState, game, gameReady, runningGameStateUpdate]
+    [cachedGameState, gameState]
   )
 
   return (
-    <Loading ready={gameLoaded}>
+    <Loading ready={!!game || mountedSinceOneSecond}>
       <>
         {(() => {
-          if (!game && gameLoaded) {
+          if (!game && mountedSinceOneSecond) {
             return (
               <BaseContainer>
                 <h1> Game not found </h1>

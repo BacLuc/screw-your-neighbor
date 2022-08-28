@@ -10,7 +10,7 @@ export function poll(
   pollFunction: () => Promise<void>,
   interval: number
 ) {
-  let finished = true
+  let finished = false
   const timerFunction = () => {
     if (finished) {
       finished = false
@@ -27,6 +27,7 @@ export function poll(
   }
   let newTimer = pollInfo?.timer
   if (!pollInfo || intervalSmaller) {
+    pollFunction().finally(() => (finished = true))
     newTimer = setInterval(timerFunction, interval)
   }
   const intervalsBefore = pollInfo?.intervals || []
@@ -65,7 +66,6 @@ export function poll(
       if (wasSmallestInterval) {
         const newInterval = Math.min(...intervalsWithOneLess)
         clearInterval(cancelPollInfo.timer)
-        finished = true
         pollerMap.set(identifier, {
           intervals: intervalsWithOneLess,
           timer: setInterval(timerFunction, newInterval),
