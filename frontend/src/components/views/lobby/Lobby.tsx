@@ -21,12 +21,16 @@ const Lobby = observer(() => {
   const { startPollPlayers, players } = usePlayers()
   const { startPollGames, games } = useGames()
 
-  useEffect(() => {
-    const playersSubscription = startPollPlayers()
-    const gamesSubscription = startPollGames()
-    return () =>
-      [playersSubscription, gamesSubscription].forEach((sub) => sub.cancel())
-  })
+  useEffect(
+    () => {
+      const playersSubscription = startPollPlayers()
+      const gamesSubscription = startPollGames()
+      return () =>
+        [playersSubscription, gamesSubscription].forEach((sub) => sub.cancel())
+    },
+
+    // eslint-disable-next-line
+      [])
 
   // filtering all the active games to only show the ones that have not started yet
   const searchingGames = games.filter(
